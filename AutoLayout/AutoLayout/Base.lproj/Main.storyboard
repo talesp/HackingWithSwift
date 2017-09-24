@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,10 +19,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GVu-yQ-I97">
-                                <rect key="frame" x="87" y="164" width="200" height="100"/>
+                                <rect key="frame" x="87.5" y="100" width="200" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="yDv-JF-w4j"/>
-                                    <constraint firstAttribute="height" constant="100" id="yX4-c0-WcK"/>
+                                    <constraint firstAttribute="width" secondItem="GVu-yQ-I97" secondAttribute="height" multiplier="2:1" id="Cto-PL-4qh"/>
                                 </constraints>
                                 <state key="normal" image="us"/>
                                 <connections>
@@ -29,10 +29,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hkO-LL-jZa">
-                                <rect key="frame" x="87" y="424" width="200" height="100"/>
+                                <rect key="frame" x="87.5" y="360.5" width="200" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="f0Z-Co-VNf"/>
-                                    <constraint firstAttribute="height" constant="100" id="uMC-1G-IhJ"/>
+                                    <constraint firstAttribute="width" secondItem="hkO-LL-jZa" secondAttribute="height" multiplier="2:1" id="XlC-tE-bzh"/>
                                 </constraints>
                                 <state key="normal" image="spain"/>
                                 <connections>
@@ -40,10 +39,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gEv-85-DaC">
-                                <rect key="frame" x="87" y="294" width="200" height="100"/>
+                                <rect key="frame" x="87" y="230" width="201" height="100.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="lHz-cD-ESn"/>
-                                    <constraint firstAttribute="height" constant="100" id="w5x-fa-89P"/>
+                                    <constraint firstAttribute="width" secondItem="gEv-85-DaC" secondAttribute="height" multiplier="2:1" id="VsH-2U-5dY"/>
                                 </constraints>
                                 <state key="normal" image="uk"/>
                                 <connections>
@@ -53,9 +51,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="gEv-85-DaC" firstAttribute="height" secondItem="GVu-yQ-I97" secondAttribute="height" id="3lC-AF-bq3"/>
                             <constraint firstItem="gEv-85-DaC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Jz-Ft-dIz"/>
-                            <constraint firstItem="GVu-yQ-I97" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="EA1-Sh-Lj0"/>
                             <constraint firstItem="GVu-yQ-I97" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Edq-WT-Q7Y"/>
+                            <constraint firstItem="hkO-LL-jZa" firstAttribute="height" secondItem="gEv-85-DaC" secondAttribute="height" id="FXh-lW-0Xb"/>
+                            <constraint firstItem="GVu-yQ-I97" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="36" id="nIL-yb-c9N"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hkO-LL-jZa" secondAttribute="bottom" constant="20" id="ryv-vh-fKb"/>
                             <constraint firstItem="hkO-LL-jZa" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vtS-SR-53R"/>
                             <constraint firstItem="hkO-LL-jZa" firstAttribute="top" secondItem="gEv-85-DaC" secondAttribute="bottom" constant="30" id="yCV-Jj-SVR"/>
                             <constraint firstItem="gEv-85-DaC" firstAttribute="top" secondItem="GVu-yQ-I97" secondAttribute="bottom" constant="30" id="zwY-BY-Fz3"/>
