@@ -12,10 +12,24 @@ class ViewController: UITableViewController {
 
     var petitions = [[String: String]]()
 
+    func showError() {
+        let alertController = UIAlertController(title: "Loading error", message: """
+There was a problem loading the feed;
+please check your connection and try again.
+""", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alertController, animated: true)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
+        let urlString: String
+        if navigationController?.tabBarItem.tag == 0 {
+            urlString = "https://api.whitehouse.gov/v1/petitions.json?limit=100"
+        }
+        else {
+            urlString = "https://api.whitehouse.gov/v1/petitions.json?signatureCountFloor=10000&limit=100"
+        }
 
         if let url = URL(string: urlString) {
 
@@ -26,7 +40,16 @@ class ViewController: UITableViewController {
                 if json["metadata"]["responseInfo"]["status"].intValue == 200 {
                     parse(json: json)
                 }
+                else {
+                    showError()
+                }
             }
+            else {
+                showError()
+            }
+        }
+        else {
+            showError()
         }
     }
 
