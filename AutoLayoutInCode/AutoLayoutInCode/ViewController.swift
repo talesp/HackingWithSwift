@@ -66,13 +66,16 @@ class ViewController: UIViewController {
             )
         }
 
-        let metrics = ["labelHeight": 88]
-        view.addConstraints(NSLayoutConstraint.constraints(
-            withVisualFormat: "V:|[label1(==labelHeight@999)]-[label2(label1)]-[label3(label2)]-[label4(label3)]-[label5(label4)]-(>=10)-|",
-            options: [],
-            metrics: metrics,
-            views: viewsDictionary)
-        )
+        var previous: UILabel!
+        for label in [label1, label2, label3, label4, label5] {
+            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.heightAnchor.constraint(equalToConstant: 88.0).isActive = true
+
+            if previous != nil {
+                label.topAnchor.constraint(equalTo: previous.bottomAnchor).isActive = true
+            }
+            previous = label
+        }
     }
 
     override func didReceiveMemoryWarning() {
