@@ -20,7 +20,11 @@ class ViewController: UIViewController {
     var activatedButtons = [UIButton]()
     var solutions = [String]()
 
-    var score = 0
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     var level = 1
 
     override func viewDidLoad() {
@@ -44,7 +48,11 @@ class ViewController: UIViewController {
     }
 
     @objc func letterTapped(button: UIButton) {
-
+        guard let currentText = currentAnswer.text,
+            let buttonText = button.titleLabel?.text else { return }
+        currentAnswer.text = currentText + buttonText
+        activatedButtons.append(button)
+        button.isHidden = true
     }
 
     func loadLevel() {
@@ -85,11 +93,45 @@ class ViewController: UIViewController {
             }
         }
     }
+
     @IBAction func submitTapped(_ sender: Any) {
+        if let solutionPosition = solutions.index(of: currentAnswer.text!) {
+            activatedButtons.removeAll()
+
+            var splitAnswers = answersLabel.text!.components(separatedBy: "\n")
+            splitAnswers[solutionPosition] = currentAnswer.text!
+            answersLabel.text = splitAnswers.joined(separator: "\n")
+
+            currentAnswer.text = ""
+            score += 1
+
+            if score % 7 == 0 {
+                let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
+                present(ac, animated: true)
+            }
+        }
     }
 
     @IBAction func clearTapped(_ sender: Any) {
+        currentAnswer.text = ""
+
+        for button in activatedButtons {
+            button.isHidden = false
+        }
+
+        activatedButtons.removeAll()
     }
-    
+
+    func levelUp(action: UIAlertAction) {
+        level += 1
+        solutions.removeAll(keepingCapacity: true)
+
+        loadLevel()
+
+        for btn in letterButtons {
+            btn.isHidden = false
+        }
+    }
 }
 
