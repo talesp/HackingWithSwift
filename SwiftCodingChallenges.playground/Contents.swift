@@ -31,7 +31,7 @@ func challenge1(input: String) -> Bool {
  return true
  ```
  */
-    return Set(input.characters).count == input.characters.count
+    return Set(input).count == input.count
 }
 
 assert(challenge1(input: "No duplicates") == true, "Challenge 1 failed")
@@ -52,7 +52,7 @@ func challenge2(input: String) -> Bool {
 
 //: Essa solução não funciona com Swift 4 - strings mudou
 
-    let lower = Array(input.lowercased().characters)
+    let lower = Array(input.lowercased())
     return lower == Array(lower.reversed())
 }
 
@@ -88,8 +88,8 @@ func challenge3(inputA: String, inputB: String) -> Bool {
  return charactersA == charactersB
  ```
  */
-    let array1 = Array(inputA.characters)
-    let array2 = Array(inputB.characters)
+    let array1 = Array(inputA)
+    let array2 = Array(inputB)
     return array1.sorted() == array2.sorted()
 }
 
@@ -174,7 +174,7 @@ func challenge6(input: String) -> String {
      
  */
     var usedChars = [Character: Bool]()
-    let result = input.characters.filter { character in
+    let result = input.filter { character in
         usedChars.updateValue(true, forKey: character) == nil
     }
     return String(result)
@@ -232,9 +232,9 @@ assert(challenge7(input: "abc") == "abc", "Challenge failed")
 
 func challenge8(original: String, rotated: String) -> Bool {
     guard original.count == rotated.count else { return false }
-    for index in 0..<original.characters.count {
+    for index in 0..<original.count {
         let suffix = original.suffix(index)
-        let preffix = original.prefix(original.characters.count - index)
+        let preffix = original.prefix(original.count - index)
         let internalRotated = "\(suffix)\(preffix)"
         if rotated == internalRotated {
             return true
@@ -271,10 +271,34 @@ assert(challenge8(original: "abcde", rotated: "abced") == false, "Challenge fail
  */
 
 func challenge9(input: String) -> Bool {
-    var input = input.lowercased()
-    var sourceLetters = "abcdefghijklmnopqrstuvwxyz"
-    while let (head, tail) = sourceLetters
-    return false
+    return Set(input.lowercased().filter({ $0 >= "a" && $0 <= "z"})).count == 26
 }
 
+assert(challenge9(input: "The quick brown fox jumps over the lazy dog") == true, "Challenge failed")
+assert(challenge9(input: "The quick brown fox jumped over the lazy dog") == false, "Challenge failed")
+
+/*:
+ ##Challenge 10: Vowels and consonants
+
+ **Difficulty**: Tricky
+
+ Given a string in English, return a tuple containing the number of vowels and consonants.
+
+ Tip: Vowels are the letters, A, E, I, O, and U; consonants are the letters B, C, D, F, G, H, J, K, L, M, N, P, Q, R, S, T, V, W, X, Y, Z.
+
+ Sample input and output
+ The input “Swift Coding Challenges” should return 6 vowels and 15 consonants.
+ The input “Mississippi” should return 4 vowels and 7 consonants.
+*/
+
+func challenge10(input: String) -> (vowels: Int, consonants: Int) {
+    let vowels = "AEIOU"
+    let filtered = input.uppercased().filter({ $0 >= "A" && $0 <= "Z" })
+    let consonants = filtered
+        .filter({ vowels.contains($0) == false })
+    return (vowels: filtered.count - consonants.count, consonants: consonants.count)
+}
+
+assert(challenge10(input: "Swift Coding Challenges") == (vowels: 6, consonants: 15), "challenge failed")
+assert(challenge10(input: "Mississippi") == (vowels: 4, consonants: 7), "challenge failed")
 //: [Next](@next)
